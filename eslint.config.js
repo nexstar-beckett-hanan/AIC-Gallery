@@ -16,14 +16,14 @@ export default [
         sourceType: 'module',
       },
     },
-    "overrides": [
-      {
-        "files": ["tests/**/*"],
-        "env": {
-          "jest": true
-        }
-      }
-    ],
+  },
+  {
+    files: ["tests/**/*"],
+    env: {
+      jest: true
+    }
+  },
+  {
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
