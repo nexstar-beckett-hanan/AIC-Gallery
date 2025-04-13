@@ -1,165 +1,172 @@
 import { useState, useEffect } from "react";
-// import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import {
   useQuery,
-  // useMutation,
-  // useQueryClient,
-  // QueryClient,
-  // QueryClientProvider,
-} from '@tanstack/react-query';
+  useQueryClient,
+  keepPreviousData,
+} from "@tanstack/react-query";
+import axios from "axios";
+const ART_LIMIT_PER_PAGE = 10;
 
 export default function Gallery() {
   const [configUrl, setConfigUrl] = useState("");
   const [artworksData, setArtworksData] = useState([]);
-  // const [totalPages, setTotalPages] = useState(0);
-  // const [page, setPage] = useState(1);
   const [artworks, setArtworks] = useState([]);
-  // const [prevPage, setPrevPage] = useState(null);
-  // const [nextPage, setNextPage] = useState(null);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
+  // Note here: prev_url, next_url props are not available despite being listed as pagination props in API
 
-  // Compare isLoading and isPending to isFetching to determine the best one to use.
-  const fetchArtworks = useQuery({
-    queryKey: ['artworksData'],
-    queryFn: async () => {
-      // todo: add timeout so we get an error if it takes too long
-      const response = await axios.get(
-        `https://api.artic.edu/api/v1/artworks/search?q=children&page=1&limit=10&fields=id,title,artist_title,thumbnail,has_not_been_viewed_much,place_of_origin,provenance_text,updated_at,style_titles,theme_titles,artist_display,date_display,medium_display,image_id,next_url,pagination.page,pagination.totalPages`,
-        // `https://api.artic.edu/api/v1/artworks/search?q=monet&query[term][is_public_domain]=true&page=1&limit=10`,
-        {
-          headers: { 'AIC-User-Agent': 'aic-bash (beckett.hanan@gmail.com)' } // allows API owner to contact developer in a situation where resource demand is high
-        }
-      )
-      setConfigUrl(response.data.config.iiif_url);
-      // setTotalPages(response.data.pagination.total_pages);
-      // setPrevPage(response.data.pagination.prev_url || null);
-      // setNextPage(response.data.pagination.next_url || null);
-      console.log(response.data.data);
+  const fetchArtworks = async () => {
+    // todo: add timeout so we get an error if it takes too long
+    // todo: finalize the filter here to ensure only the fields we need are included in the fetch
+    // optional todo: turn fields into an object and encode it to make editing fields easier
+    const response = await axios.get(
+      `https://api.artic.edu/api/v1/artworks/search?q=children&page=${page}&limit=${ART_LIMIT_PER_PAGE}&fields=id,title,artist_title,thumbnail,has_not_been_viewed_much,place_of_origin,provenance_text,updated_at,style_titles,theme_titles,artist_display,date_display,medium_display,image_id,next_url,pagination.page,pagination.total_pages`,
+      // `https://api.artic.edu/api/v1/artworks/search?q=monet&query[term][is_public_domain]=true&page=1&limit=10`,
+      {
+        // allows API owner to contact developer in a situation where resource demand is high
+        headers: { "AIC-User-Agent": "aic-bash (beckett.hanan@gmail.com)" },
+      }
+    );
+    setConfigUrl(response.data.config.iiif_url);
+    setTotalPages(response.data.pagination.total_pages);
 
-      // transform data here to build array with image ids
+    // then decide where to make a second call to get alt text where possible
+    setArtworksData(response.data.data);
+    return response.data;
+  };
+  // turns API fields into data shape desired for display
+  const transformArtworksData = (artworksData) => {
+    const artWithImages = [];
+    artworksData.forEach((artwork) => {
+      const imgSrc = `${configUrl}/${artwork.image_id}/full/400,/0/default.jpg`;
+      const newArtwork = {
+        id: artwork.id,
+        title: artwork.title,
+        artist: artwork.artist_title,
+        // if there's an image, alt text will either be an image description or will use medium_display text roughly in this format: 'A work made of _medium_display_'
+        altText: artwork.thumbnail?.alt_text || `artwork titled ${artwork.title}`,
+        date: artwork.date_display,
+        display: artwork.artist_display,
+        isPopular: !artwork.has_not_been_viewed_much,
+        // keep in mind for UI, this can be super long
+        shortDescription: artwork.medium_display,
+        place: artwork.place_of_origin,
+        obtained: artwork.provenance_text,
+        lastUpdated: artwork.updated_at,
+        styleTags: artwork.style_titles,
+        themes: artwork.theme_titles,
+        // will be null or a string, converted to true or false
+        hasImage: !!artwork.image_id,
+        // API specifies that hotlinking images is okay
+        imgSrc,
+      };
+      artWithImages.push(newArtwork);
+    });
+    return artWithImages;
+  };
 
-      // then decide where to make a second call to get alt text where possible
-      setArtworksData(response.data.data);
-      return response.data;
-    },
-    // todo: add selector so we can see if anything changed
-    // select: (data) => {
-    //   data.find((artwork) => artwork.id === id)
-    // }
-  })
+  const useArtworksQuery = () => {
+    useQuery({
+      queryKey: ["artworksData", page],
+      queryFn: fetchArtworks,
+      placeholderData: keepPreviousData,
+      // todo: optionally add selector so we can see if anything changed
+      // select: (data) => {
+      //   data.find((artwork) => artwork.id === id)
+      // }
+    });
+  };
+
+  const queryClient = useQueryClient();
+
+  // prefetch next page
+  useEffect(() => {
+    if (page < totalPages) {
+      const nextPage = page + 1;
+      queryClient.prefetchQuery({
+        queryKey: ['artworksData', nextPage],
+        queryFn: fetchArtworks(nextPage),
+      })
+    }
+  }, [page, queryClient]);
 
   useEffect(() => {
     if (artworksData?.length === 10) {
-      const artWithImages = [];
-      artworksData.forEach((artwork) => {
-        const imgSrc = `${configUrl}/${artwork.image_id}/full/400,/0/default.jpg`;
-        const newArtwork = {
-          id: artwork.id,
-          title: artwork.title,
-          artist: artwork.artist_title,
-          altText: artwork.thumbnail?.alt_text || `artwork titled ${artwork.title}`, // if there's an image, the alt text will either be an actual image description or will reuse the medium_display with a simple string before it like 'A work made of _medium_display_'
-          date: artwork.date_display,
-          display: artwork.artist_display,
-          isPopular: !artwork.has_not_been_viewed_much,
-          shortDescription: artwork.medium_display,
-          place: artwork.place_of_origin,
-          obtained: artwork.provenance_text,
-          lastUpdated: artwork.updated_at,
-          styleTags: artwork.style_titles,
-          themes: artwork.theme_titles,
-          hasImage: !!artwork.image_id, // will be null or a string, converted to true or false
-          imgSrc // API specifies that hotlinking images is okay
-        };
-        console.log(newArtwork);
-        artWithImages.push(newArtwork);
-
-        // const altText = await fetchAltText(artwork.image_id);
-        // console.log({altText});
-      });
+      const artWithImages = transformArtworksData(artworksData);
       setArtworks(artWithImages);
     }
-  }, [artworksData, configUrl]);
+  }, [artworksData, configUrl, page]);
 
-  console.log(fetchArtworks.error, fetchArtworks.isFetching);
-  if (fetchArtworks.isFetching)  {
+  useArtworksQuery();
+  // todo: Compare isLoading and isPending to isFetching to determine the best one to use.
+  if (useArtworksQuery.isFetching) {
     return <p>Loading...</p>;
   }
 
-  if (fetchArtworks.error) {
-    return <p>Error! {fetchArtworks.error.message}</p>;
+  if (useArtworksQuery.error) {
+    return <p>Error! {useArtworksQuery.error.message}</p>;
   }
 
   // add error boundary: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
   return (
     <div>
-      <ul>
-        {artworks && artworks.map((artwork) => {
-          console.log(artwork);
-          return (
-            <li key={artwork.id}>
-              {artwork.title && <h2>{artwork.title}</h2>}
-              {artwork.artist && <h3>{`by ${artwork.artist}`}</h3>}
-              {artwork.shortDescription && <h4>Description: {artwork.shortDescription}</h4>}
-              {artwork.date && <p>Date/Date Range: {artwork.date}</p>}
-              {artwork.display && <p>{artwork.display}</p>}
-              {artwork.isPopular && <p>*This artwork has been viewed many times.*</p>}
-              {artwork.obtained && <p>Obtained: {artwork.obtained}</p>}
-              {artwork.place && <p>Place of Origin: {artwork.place}</p>}
-              {/* this url should always be built correctly but may not render an image */}
-              {(artwork.hasImage && <img src={artwork.imgSrc} alt={artwork.altText} />) || <p>No image available.</p>}
-            </li>
-          )
-        })}
-      </ul>
-      { // example for using mutations/pagination
-      // if the id is null/no image, we won't see 10 unless we're okay with one's without images
+      {
+        // todo: finish accessibility attributes and test
+        // if the id is null/no image, we won't see 10 unless we're okay with one's without images
       }
-      {/* {prevPage
-      && <button
-        onClick={() => {
-          fetchArtworks()
-        }}
-      >
-        Previous 10 Artworks
-      </button>}
-      {nextPage
-      && <button
-        onClick={() => {
-          mutation.mutate({
-            page: page + 1
-          })
-        }}
-      >
-        Previous 10 Artworks
-      </button>} */}
+      <p aria-current='page'>Current page: {page}</p>
+      <nav aria-label="Pagination">
+        <button
+          onClick={() => {
+            console.log(page);
+            if (!useArtworksQuery.isPlaceholderData && page > 1) {
+              setPage(page - 1);
+            }
+          }}
+          // todo: check why React Query docs don't suggest disabling on isPlaceholderData here like in next - is it because React Query handles cacheing previous page automatically?
+          disabled={page === 1}
+          >
+          Previous 10 Artworks
+        </button>
+        <button
+          onClick={() => {
+            if (!useArtworksQuery.isPlaceholderData && page < totalPages) {
+              setPage(page + 1);
+            }
+          }}
+          // disable button if placeholderData is active or if we don't have any more pages to navigate to
+          // todo: disable during fetching with clear signal that it will be renabled vs have reached end of pages
+          disabled={useArtworksQuery.isPlaceholderData || page === totalPages}
+        >
+          Next 10 Artworks
+        </button>
+      </nav>
+      <ul>
+        {artworks &&
+          artworks.map((artwork) => {
+            console.log(artwork);
+            return (
+              <li key={artwork.id}>
+                {artwork.title && <h2>{artwork.title}</h2>}
+                {artwork.artist && <h3>{`by ${artwork.artist}`}</h3>}
+                {artwork.shortDescription && (
+                  <h4>Description: {artwork.shortDescription}</h4>
+                )}
+                {artwork.date && <p>Date/Date Range: {artwork.date}</p>}
+                {artwork.display && <p>{artwork.display}</p>}
+                {artwork.isPopular && (
+                  <p>*This artwork has been viewed many times.*</p>
+                )}
+                {artwork.obtained && <p>Obtained: {artwork.obtained}</p>}
+                {artwork.place && <p>Place of Origin: {artwork.place}</p>}
+                {/* this url should always be built correctly but may not render an image unless API results are filtered */}
+                {(artwork.hasImage && (
+                  <img src={artwork.imgSrc} alt={artwork.altText} />
+                )) || <p>No image available.</p>}
+              </li>
+            );
+          })}
+      </ul>
     </div>
-  )
-
-//   // const [artworks, setArtworks] = useState([]);
-
-//   // const fetchArtworks = async () => {
-//   //   try {
-//   //     // wrap this in a timeout so we get an error if it takes too long
-//   //     const response = await axios.get(
-//   //       "https://api.artic.edu/api/v1/artworks?limit=10&page=1",
-//   //       {
-//   //         headers: { 'AIC-User-Agent': 'aic-bash (beckett.hanan@gmail.com)' }
-//   //       }
-//   //     );
-//   //     setResponse(response?.data?.data);
-//   //     console.log(response.data.data);
-//   //     setConfigUrl(response.data.config.iiif_url);
-//   //   } catch (err) {
-//   //     // create an error view to show something to users
-//   //     setError(true);
-//   //     // Axios will pass any non-200 errors here.
-//   //     if (err.response) {
-//   //       console.log(err.response.data); // check API docs to confirm what kind of issue we get here
-//   //       console.log(err.response.status);
-//   //       console.log(err.response.headers);
-//   //     } else {
-//   //       console.error(`GET error: ${err.message}`);
-//   //     }
-//   //   }
-//   // };
+  );
 }
