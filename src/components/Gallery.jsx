@@ -7,13 +7,14 @@ import Artwork from './Artwork';
 
 export default function Gallery() {
 	const [page, setPage] = useState(1);
-	const { data, isFetching, isError, error, isPlaceholderData } = useArtworksQuery(page);
+	const { data, isFetching, isError, error, isPlaceholderData } =
+		useArtworksQuery(page);
 	let configUrl, totalPages, artworksArray;
 	if (data) {
-    artworksArray = data.data.data;
+		artworksArray = data.data.data;
 		({ configUrl, totalPages } = data);
 	}
-  
+
 	// prefetch next page so it loads faster
 	const queryClient = useQueryClient();
 	useEffect(() => {
@@ -41,16 +42,27 @@ export default function Gallery() {
 			{
 				// todo: finish accessibility attributes and test
 			}
-      <h1>Art Institute of Chicago Gallery</h1>
+			<h1>Art Institute of Chicago Gallery</h1>
 			<p aria-current='page'>Current page: {page}</p>
-			<Navigation page={ page } isPlaceholderData={ isPlaceholderData } totalPages={ totalPages } setPage={ setPage } />
-      <section>
-        <ul>
-          {artworksArray &&
-            artworksArray.map((artwork) => <Artwork key={ artwork.id } artwork={ artwork } configUrl={ configUrl } page={ page } />)
-          }
-        </ul>
-      </section>
+			<Navigation
+				page={page}
+				isPlaceholderData={isPlaceholderData}
+				totalPages={totalPages}
+				setPage={setPage}
+			/>
+			<section>
+				<ul>
+					{artworksArray &&
+						artworksArray.map((artwork) => (
+							<Artwork
+								key={artwork.id}
+								artwork={artwork}
+								configUrl={configUrl}
+								page={page}
+							/>
+						))}
+				</ul>
+			</section>
 		</main>
 	);
 }
