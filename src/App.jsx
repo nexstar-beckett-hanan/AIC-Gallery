@@ -4,9 +4,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Gallery from './components/Gallery';
 import ArtDetails from './components/ArtDetails';
-import './App.css';
+import './styles/App.css';
 
-// Access new React Query client, and mark data as stale after 24 hrs
+// Access new Tanstack Query client, and mark data as stale after 24 hrs
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -16,6 +16,7 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+   
 	return (
 		<ErrorBoundary fallback={<div>Oops! Sorry, something went wrong.</div>}>
 			<QueryClientProvider client={queryClient}>
@@ -37,10 +38,10 @@ function App() {
 						/>
 					</Routes>
 				</BrowserRouter>
-				{/* <ReactQueryDevtools
+				<ReactQueryDevtools
 					initialIsOpen={true}
 					buttonPosition={'top-right'}
-				/> */}
+				/>
 			</QueryClientProvider>
 		</ErrorBoundary>
 	);

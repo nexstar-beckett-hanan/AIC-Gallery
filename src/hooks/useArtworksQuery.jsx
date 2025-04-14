@@ -1,5 +1,5 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import fetchArtworks from '../js/fetchArtworks';
+import fetchArtworks from '../utils/fetchArtworks';
 
 const useArtworksQuery = (page) => {
 	return useQuery({

@@ -1,3 +1,5 @@
+import { ART_LIMIT_PER_PAGE } from '../constants/constants';
+
 export default function Navigation({
 	page,
 	isPlaceholderData,
@@ -14,10 +16,10 @@ export default function Navigation({
 						setPage(page - 1);
 					}
 				}}
-				// todo: check why React Query docs don't suggest disabling on isPlaceholderData here like in next - is it because React Query handles cacheing previous page automatically?
+				// todo: check why Tanstack Query docs don't suggest disabling on isPlaceholderData here like in next - is it because Tanstack Query handles cacheing previous page automatically?
 				disabled={page === 1}
 			>
-				Previous 6 Artworks
+				<strong>Previous { ART_LIMIT_PER_PAGE } Artworks</strong>
 			</button>
 			<button
 				onClick={() => {
@@ -27,9 +29,10 @@ export default function Navigation({
 				}}
 				// disable button if placeholderData is active or if we don't have any more pages to navigate to
 				// todo: disable during fetching with clear signal that it will be renabled vs have reached end of pages
+        // todo: check that next button is disabled on last page
 				disabled={isPlaceholderData || page === totalPages}
 			>
-				Next 6 Artworks
+				<strong>Next { ART_LIMIT_PER_PAGE } Artworks</strong>
 			</button>
 		</nav>
 	);

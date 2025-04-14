@@ -1,5 +1,5 @@
 # AIC-Gallery
-React project displaying art from the Art Institute of Chicago
+React project displaying art from the Art Institute of Chicago using their incredible API: https://api.artic.edu/docs/#introduction
 
 # Tech Stack
 - React as frontend framework

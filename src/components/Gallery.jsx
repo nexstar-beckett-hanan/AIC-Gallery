@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import useArtworksQuery from '../hooks/useArtworksQuery';
-import fetchArtworks from '../js/fetchArtworks';
+import fetchArtworks from '../utils/fetchArtworks';
 import Navigation from './Navigation';
 import Artwork from './Artwork';
+import { ART_LIMIT_PER_PAGE } from '../constants/constants';
 
 export default function Gallery() {
 	const [page, setPage] = useState(1);
-	const { data, isFetching, isError, error, isPlaceholderData } =
+	const { data, isFetching, isPending, isError, error, isPlaceholderData } =
 		useArtworksQuery(page);
 	let configUrl, totalPages, artworksArray;
 	if (data) {
@@ -28,7 +29,7 @@ export default function Gallery() {
 	}, [page, totalPages, queryClient]);
 
 	// todo: Compare isLoading and isPending to isFetching to determine the best one to use.
-	if (isFetching) {
+	if (isPending) {
 		return <p>Loading...</p>;
 	}
 
@@ -49,23 +50,24 @@ export default function Gallery() {
 				totalPages={totalPages}
 				setPage={setPage}
 			/>
-			<section className='gallery'>
-        {artworksArray &&
+      <section className='gallery'>
+        {artworksArray.length === ART_LIMIT_PER_PAGE &&
           artworksArray.map((artwork) => (
-            <Artwork
-              key={artwork.id}
-              artwork={artwork}
-              configUrl={configUrl}
-              page={page}
-            />
-          ))}
-			</section>
-      <Navigation
+              <Artwork
+                key={artwork.id}
+                artwork={artwork}
+                configUrl={configUrl}
+                page={page}
+              />
+            ))
+          }
+      </section>
+      {/* <Navigation
 				page={page}
 				isPlaceholderData={isPlaceholderData}
 				totalPages={totalPages}
 				setPage={setPage}
-			/>
+			/> */}
 		</main>
 	);
 }
