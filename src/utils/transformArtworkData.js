@@ -11,11 +11,9 @@ const transformArtworkData = (artwork, configUrl) => {
 		altText: artwork.thumbnail?.alt_text || `artwork titled ${artwork.title}`,
 		date: artwork.date_display,
 		display: artwork.artist_display,
-		isPopular: !artwork.has_not_been_viewed_much,
 		// keep in mind for UI, this can be super long
 		shortDescription: artwork.medium_display,
 		place: artwork.place_of_origin,
-		obtained: artwork.provenance_text,
 		lastUpdated: convertedDate,
 		styleTags: artwork.style_titles,
 		themes: artwork.theme_titles,
