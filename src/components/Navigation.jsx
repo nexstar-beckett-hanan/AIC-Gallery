@@ -5,13 +5,13 @@ export default function Navigation({
 	isPlaceholderData,
 	totalPages,
 	setPage,
+  location,
 }) {
 	return (
-		<nav aria-label='Pagination'>
+		<nav aria-label={`${location} Pagination`}>
 			<button
 				type='button'
 				onClick={() => {
-					console.log(page);
 					if (!isPlaceholderData && page > 1) {
 						setPage(page - 1);
 					}

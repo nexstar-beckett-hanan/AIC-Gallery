@@ -4,11 +4,11 @@ import useArtworksQuery from '../hooks/useArtworksQuery';
 import fetchArtworks from '../utils/fetchArtworks';
 import Navigation from './Navigation';
 import Artwork from './Artwork';
-import { ART_LIMIT_PER_PAGE } from '../constants/constants';
+import { ART_LIMIT_PER_PAGE, SEARCH_TERM } from '../constants/constants';
 
 export default function Gallery() {
 	const [page, setPage] = useState(1);
-	const { data, isFetching, isPending, isError, error, isPlaceholderData } =
+	const { data, isFetching, isError, error, isPlaceholderData } =
 		useArtworksQuery(page);
 	let configUrl, totalPages, artworksArray;
 	if (data) {
@@ -28,8 +28,7 @@ export default function Gallery() {
 		}
 	}, [page, totalPages, queryClient]);
 
-	// todo: Compare isLoading and isPending to isFetching to determine the best one to use.
-	if (isPending) {
+	if (isFetching) {
 		return <p>Loading...</p>;
 	}
 
@@ -39,16 +38,21 @@ export default function Gallery() {
 
 	return (
 		<main>
-			{
-				// todo: finish accessibility attributes and test
-			}
+			<div role="status"
+        aria-live="polite"
+        aria-atomic="true">
+        New Artwork has Loaded.
+      </div>
 			<h1>Art Institute of Chicago Gallery</h1>
-			<p aria-current='page'>Current page: {page}</p>
+      <h2>Click any piece of art for more details.</h2>
+      <p><strong>Current Search Term:</strong> { SEARCH_TERM }</p>
+			<p aria-current='page'><strong>Current page:</strong> {page}</p>
 			<Navigation
 				page={page}
 				isPlaceholderData={isPlaceholderData}
 				totalPages={totalPages}
 				setPage={setPage}
+        location={'Page Top'}
 			/>
       <section className='gallery'>
         {artworksArray.length === ART_LIMIT_PER_PAGE &&
@@ -62,12 +66,13 @@ export default function Gallery() {
             ))
           }
       </section>
-      {/* <Navigation
+      <Navigation
 				page={page}
 				isPlaceholderData={isPlaceholderData}
 				totalPages={totalPages}
 				setPage={setPage}
-			/> */}
+        location={'Page Bottom'}
+			/>
 		</main>
 	);
 }
