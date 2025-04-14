@@ -1,4 +1,4 @@
-import { useParams, useLocation } from 'react-router';
+import { useParams, useLocation, Link } from 'react-router';
 import useArtworksQuery from '../hooks/useArtworksQuery';
 
 // import mirador here for accessible image viewer if it would be valuable?
@@ -40,8 +40,10 @@ export default function ArtDetails() {
 		} = artworkDetails;
 
 		return (
-			// <CurrentArtworkContext value={id}>
 			<section id={id}>
+        <Link to={{ pathname: `/` }}>
+          <button>Back</button>
+        </Link>
 				{shortDescription && <h4>Description: {shortDescription}</h4>}
 				{<p>Date/Date Range: {date || 'Unknown'}</p>}
 				{display && <p>{display}</p>}
@@ -49,7 +51,6 @@ export default function ArtDetails() {
 				{obtained && <p>Obtained: {obtained}</p>}
 				{place && <p>Place of Origin: {place}</p>}
 			</section>
-			// </CurrentArtworkContext>
 		);
 	}
 
