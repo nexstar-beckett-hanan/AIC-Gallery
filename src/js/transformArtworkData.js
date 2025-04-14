@@ -1,6 +1,6 @@
 // turns API fields into data shape desired for display
 const transformArtworkData = (artwork, configUrl) => {
-	const imgSrc = `${configUrl}/${artwork.image_id}/full/400,/0/default.jpg`;
+	const imgSrc = `${configUrl}/${artwork.image_id}/full/200,/0/default.jpg`;
 	const artWithImage = {
 		id: artwork.id,
 		title: artwork.title,

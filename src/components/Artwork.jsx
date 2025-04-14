@@ -8,7 +8,7 @@ export default function Artwork({ artwork, configUrl, page }) {
 
 	if (artwork.id) {
 		return (
-			<li>
+			<article>
 				{<h2>{artwork.title || 'Untitled'}</h2>}
 				{<h3>{`by ${artwork.artist || 'Unknown'}`}</h3>}
 
@@ -24,9 +24,8 @@ export default function Artwork({ artwork, configUrl, page }) {
 						/>
 					)) || <p>No image available.</p>}
 				</Link>
-			</li>
+			</article>
 		);
 	}
 }
 
-//  title, artist, shortDescription, date, display, isPopular, obtained, place, hasImage, imgSrc, altText

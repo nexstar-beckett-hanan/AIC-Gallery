@@ -36,7 +36,6 @@ export default function Gallery() {
 		return <p>Error! {error.message}</p>;
 	}
 
-	// add error boundary: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
 	return (
 		<main>
 			{
@@ -50,19 +49,23 @@ export default function Gallery() {
 				totalPages={totalPages}
 				setPage={setPage}
 			/>
-			<section>
-				<ul>
-					{artworksArray &&
-						artworksArray.map((artwork) => (
-							<Artwork
-								key={artwork.id}
-								artwork={artwork}
-								configUrl={configUrl}
-								page={page}
-							/>
-						))}
-				</ul>
+			<section className='gallery'>
+        {artworksArray &&
+          artworksArray.map((artwork) => (
+            <Artwork
+              key={artwork.id}
+              artwork={artwork}
+              configUrl={configUrl}
+              page={page}
+            />
+          ))}
 			</section>
+      <Navigation
+				page={page}
+				isPlaceholderData={isPlaceholderData}
+				totalPages={totalPages}
+				setPage={setPage}
+			/>
 		</main>
 	);
 }

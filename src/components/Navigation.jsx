@@ -17,7 +17,7 @@ export default function Navigation({
 				// todo: check why React Query docs don't suggest disabling on isPlaceholderData here like in next - is it because React Query handles cacheing previous page automatically?
 				disabled={page === 1}
 			>
-				Previous 10 Artworks
+				Previous 6 Artworks
 			</button>
 			<button
 				onClick={() => {
@@ -29,7 +29,7 @@ export default function Navigation({
 				// todo: disable during fetching with clear signal that it will be renabled vs have reached end of pages
 				disabled={isPlaceholderData || page === totalPages}
 			>
-				Next 10 Artworks
+				Next 6 Artworks
 			</button>
 		</nav>
 	);
