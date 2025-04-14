@@ -28,29 +28,42 @@ export default function ArtDetails() {
 			altText,
 			date,
 			display,
-			isPopular,
 			shortDescription,
 			place,
-			obtained,
 			lastUpdated,
 			styleTags,
-			theme,
+			themes,
 			hasImage,
 			imgSrc,
 		} = artworkDetails;
 
 		return (
-			<section id={id}>
-        <Link to={{ pathname: `/` }}>
-          <button>Back</button>
-        </Link>
-				{shortDescription && <h4>Description: {shortDescription}</h4>}
-				{<p>Date/Date Range: {date || 'Unknown'}</p>}
-				{display && <p>{display}</p>}
-				{isPopular && <p>*This artwork has been viewed many times.*</p>}
-				{obtained && <p>Obtained: {obtained}</p>}
-				{place && <p>Place of Origin: {place}</p>}
-			</section>
+			<main id={id} className='art-details'>
+        <section className='column left-column'>
+          <Link to={{ pathname: `/` }}>
+            <button><b>{'Back'}</b></button>
+          </Link>
+          {(hasImage && (
+            <div className='frame'>
+              <img
+                src={imgSrc}
+                alt={altText}
+              />
+            </div>
+          )) || <p>No image available.</p>}
+        </section>
+        <section className='column right-column'>
+          {<h1>{title || 'Untitled'}</h1>}
+          {<h2>{`by ${artist || 'Unknown'}`}</h2>}
+          {shortDescription && <p><strong>Description:</strong> {shortDescription}</p>}
+          {display && <p><strong>Additional Info:</strong> {display}</p>}
+          {<p><strong>Date or Date Range:</strong> {date || 'Unknown'}</p>}
+          {place && <p><strong>Place of Origin:</strong> {place}</p>}
+          {themes.length > 0 && <p><strong>Themes:</strong> {themes.join(', ')}</p>}
+          {styleTags.length > 0 && <p><strong>Styles:</strong> {styleTags.join(', ')}</p>}
+          {lastUpdated && <p><strong>Last Updated:</strong> {lastUpdated}</p>}
+        </section>
+			</main>
 		);
 	}
 

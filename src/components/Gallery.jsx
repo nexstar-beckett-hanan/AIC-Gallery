@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import useArtworksQuery from '../hooks/useArtworksQuery';
-import fetchArtworks from '../js/fetchArtworks';
+import fetchArtworks from '../utils/fetchArtworks';
 import Navigation from './Navigation';
 import Artwork from './Artwork';
+import { ART_LIMIT_PER_PAGE, SEARCH_TERM } from '../constants/constants';
 
 export default function Gallery() {
 	const [page, setPage] = useState(1);
@@ -27,7 +28,6 @@ export default function Gallery() {
 		}
 	}, [page, totalPages, queryClient]);
 
-	// todo: Compare isLoading and isPending to isFetching to determine the best one to use.
 	if (isFetching) {
 		return <p>Loading...</p>;
 	}
@@ -36,33 +36,43 @@ export default function Gallery() {
 		return <p>Error! {error.message}</p>;
 	}
 
-	// add error boundary: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
 	return (
 		<main>
-			{
-				// todo: finish accessibility attributes and test
-			}
+			<div role="status"
+        aria-live="polite"
+        aria-atomic="true">
+        New Artwork has Loaded.
+      </div>
 			<h1>Art Institute of Chicago Gallery</h1>
-			<p aria-current='page'>Current page: {page}</p>
+      <h2>Click any piece of art for more details.</h2>
+      <p><strong>Current Search Term:</strong> { SEARCH_TERM }</p>
+			<p aria-current='page'><strong>Current page:</strong> {page}</p>
 			<Navigation
 				page={page}
 				isPlaceholderData={isPlaceholderData}
 				totalPages={totalPages}
 				setPage={setPage}
+        location={'Page Top'}
 			/>
-			<section>
-				<ul>
-					{artworksArray &&
-						artworksArray.map((artwork) => (
-							<Artwork
-								key={artwork.id}
-								artwork={artwork}
-								configUrl={configUrl}
-								page={page}
-							/>
-						))}
-				</ul>
-			</section>
+      <section className='gallery'>
+        {artworksArray.length === ART_LIMIT_PER_PAGE &&
+          artworksArray.map((artwork) => (
+              <Artwork
+                key={artwork.id}
+                artwork={artwork}
+                configUrl={configUrl}
+                page={page}
+              />
+            ))
+          }
+      </section>
+      <Navigation
+				page={page}
+				isPlaceholderData={isPlaceholderData}
+				totalPages={totalPages}
+				setPage={setPage}
+        location={'Page Bottom'}
+			/>
 		</main>
 	);
 }

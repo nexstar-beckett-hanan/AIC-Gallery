@@ -1,4 +1,4 @@
-import sum from '../src/js/sum';
+import sum from '../src/utils/sum';
 import { test, expect } from '@jest/globals';
 
 test('adds 1 + 2 to equal 3', () => {

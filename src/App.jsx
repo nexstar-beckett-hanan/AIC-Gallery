@@ -4,10 +4,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Gallery from './components/Gallery';
 import ArtDetails from './components/ArtDetails';
-// import reactLogo from './assets/react.svg';
-import './App.css';
+import './styles/App.css';
 
-// Access new React Query client, and mark data as stale after 24 hrs
+// Access new Tanstack Query client, and mark data as stale after 24 hrs
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
@@ -17,12 +16,14 @@ const queryClient = new QueryClient({
 });
 
 function App() {
+   
 	return (
-		<ErrorBoundary fallback={<div>Something went wrong.</div>}>
+		<ErrorBoundary fallback={<div>Oops! Sorry, something went wrong.</div>}>
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
 					<Routes>
-						{/* todo: could add page routes here later to allow people to link to a specific page*/}
+						{/* todo: add page routes here later to allow people to link to a specific page */}
+            {/* todo: see if it's possible to set up access to details pages with going to them via Gallery the first time to hydrate data, seems like HashBrowser instead of BrowserRouter might be the right way to fix, and/or configuring a basename for vite and using it during the build command */}
 						<Route
 							path='/'
 							element={<Gallery />}
@@ -33,7 +34,7 @@ function App() {
 						/>
 						<Route
 							path='*'
-							element={<p>Path not resolved</p>}
+							element={<p>Oops! We don't have that page.</p>}
 						/>
 					</Routes>
 				</BrowserRouter>
