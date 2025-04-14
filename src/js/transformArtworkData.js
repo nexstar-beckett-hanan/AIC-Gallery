@@ -1,9 +1,7 @@
 // turns API fields into data shape desired for display
-const transformArtworksData = (artworksData, configUrl) => {
-  const artWithImages = [];
-  artworksData.forEach((artwork) => {
+const transformArtworkData = (artwork, configUrl) => {
     const imgSrc = `${configUrl}/${artwork.image_id}/full/400,/0/default.jpg`;
-    const newArtwork = {
+    const artWithImage = {
       id: artwork.id,
       title: artwork.title,
       artist: artwork.artist_title,
@@ -24,9 +22,7 @@ const transformArtworksData = (artworksData, configUrl) => {
       // API specifies that hotlinking images is okay
       imgSrc,
     };
-    artWithImages.push(newArtwork);
-  });
-  return artWithImages;
+  return artWithImage;
 };
 
-export default transformArtworksData;
+export default transformArtworkData;
