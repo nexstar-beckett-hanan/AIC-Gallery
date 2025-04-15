@@ -2,7 +2,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Routes, Route } from 'react-router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import Gallery from './components/Gallery';
+import Home from './components/Home';
 import ArtDetails from './components/ArtDetails';
 import './styles/App.css';
 
@@ -22,12 +22,11 @@ function App() {
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
 					<Routes>
-						{/* todo: add page routes here later to allow people to link to a specific page */}
-            {/* todo: see if it's possible to set up access to details pages with going to them via Gallery the first time to hydrate data, seems like HashBrowser instead of BrowserRouter might be the right way to fix, and/or configuring a basename for vite and using it during the build command */}
-						<Route
-							path='/'
-							element={<Gallery />}
-						/>
+            {/* todo: see if it's possible to set up access to details pages with going to them via Gallery the first time to hydrate data, seems like HashBrowser instead of BrowserRouter might be the right way, and/or configuring a basename for vite and using it during the build command */}
+						<Route path='/'>
+              <Route index element={<Home />} />
+              <Route path=':page' element={<Home />} />
+            </Route>
 						<Route
 							path='details/:id'
 							element={<ArtDetails />}

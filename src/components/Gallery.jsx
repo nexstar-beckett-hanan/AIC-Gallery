@@ -6,10 +6,18 @@ import Navigation from './Navigation';
 import Artwork from './Artwork';
 import { ART_LIMIT_PER_PAGE, SEARCH_TERM } from '../constants/constants';
 
-export default function Gallery() {
-	const [page, setPage] = useState(1);
-	const { data, isFetching, isError, error, isPlaceholderData } =
-		useArtworksQuery(page);
+export default function Gallery({ newPage }) {
+  const [page, setPage] = useState('1');
+  const [manualError, setManualError] = useState(null);
+  
+  useEffect(() => {
+    if (newPage) {
+      setPage(newPage);
+    }
+  }, [newPage]);
+
+	const { data, isFetching, isError, error, isPlaceholderData } = useArtworksQuery(newPage || page);
+
 	let configUrl, totalPages, artworksArray;
 	if (data) {
 		artworksArray = data.data.data;
@@ -19,13 +27,16 @@ export default function Gallery() {
 	// prefetch next page so it loads faster
 	const queryClient = useQueryClient();
 	useEffect(() => {
-		if (page < totalPages) {
-			const nextPage = page + 1;
+    console.log(Number(page), totalPages)
+		if (Number(page) < totalPages) {
+			const nextPage = (Number(page) + 1).toString();
 			queryClient.prefetchQuery({
 				queryKey: ['artworksData', nextPage],
 				queryFn: fetchArtworks,
 			});
-		}
+		} else if (totalPages >= page) {
+      setManualError(`Page number too high. Try a lower page number than ${totalPages}`);
+    }
 	}, [page, totalPages, queryClient]);
 
 	if (isFetching) {
@@ -36,16 +47,12 @@ export default function Gallery() {
 		return <p>Error! {error.message}</p>;
 	}
 
+  if (manualError) {
+    return <h3>{manualError}</h3>;
+  }
+
 	return (
 		<main>
-			<div role="status"
-        aria-live="polite"
-        aria-atomic="true">
-        New Artwork has Loaded.
-      </div>
-			<h1>Art Institute of Chicago Gallery</h1>
-      <h2>Click any piece of art for more details.</h2>
-      <p><strong>Current Search Term:</strong> { SEARCH_TERM }</p>
 			<p aria-current='page'><strong>Current page:</strong> {page}</p>
 			<Navigation
 				page={page}
@@ -55,6 +62,11 @@ export default function Gallery() {
         location={'Page Top'}
 			/>
       <section className='gallery'>
+        {/* <div role="status"
+          aria-live="polite"
+          aria-atomic="true">
+          New Artwork has Loaded.
+        </div> */}
         {artworksArray.length === ART_LIMIT_PER_PAGE &&
           artworksArray.map((artwork) => (
               <Artwork
@@ -73,6 +85,6 @@ export default function Gallery() {
 				setPage={setPage}
         location={'Page Bottom'}
 			/>
-		</main>
+    </main>
 	);
 }
