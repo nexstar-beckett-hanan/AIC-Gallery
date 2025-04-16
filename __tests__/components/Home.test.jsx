@@ -39,31 +39,7 @@ describe('Home Component', () => {
 			).toBeInTheDocument();
 		});
 
-		it('shows the "Current Search Term" text', async () => {
-			const result = renderWithClient(
-				<BrowserRouter>
-					<Home />
-				</BrowserRouter>
-			);
-
-			expect(
-				await result.findByText(/Current Search Term:/i)
-			).toBeInTheDocument();
-		});
-
-		it('shows the current search term as defined in constants', async () => {
-			const result = renderWithClient(
-				<BrowserRouter>
-					<Home />
-				</BrowserRouter>
-			);
-
-			expect(
-				await result.findByText(new RegExp(SEARCH_TERM, 'i'))
-			).toBeInTheDocument();
-		});
-
-		it('renders 2 headings', async () => {
+		it('renders the title as a heading', async () => {
 			const result = renderWithClient(
 				<BrowserRouter>
 					<Home />

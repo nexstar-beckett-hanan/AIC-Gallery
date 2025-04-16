@@ -7,6 +7,7 @@ import { http, HttpResponse } from 'msw';
 
 import { renderWithClient } from '../testUtils';
 import { mockServer } from '../../vitest-setup';
+import { SEARCH_TERM } from '../../src/constants/constants';
 import Gallery from '../../src/components/Gallery';
 
 const mockUseNavigate = vi.fn();
@@ -26,6 +27,30 @@ describe('Gallery Component', () => {
 			);
 
 			expect(await result.findByRole('main')).toBeInTheDocument();
+		});
+
+    it('shows the "Current Search Term" text', async () => {
+			const result = renderWithClient(
+				<BrowserRouter>
+					<Gallery newPage={newPage} />
+				</BrowserRouter>
+			);
+
+			expect(
+				await result.findByText(/Current Search Term:/i)
+			).toBeInTheDocument();
+		});
+
+		it('shows the current search term as defined in constants', async () => {
+			const result = renderWithClient(
+				<BrowserRouter>
+					<Gallery newPage={newPage} />
+				</BrowserRouter>
+			);
+
+			expect(
+				await result.getByRole('paragraph', new RegExp(SEARCH_TERM, 'i'))
+			).toBeInTheDocument();
 		});
 
 		it('should show the "current page" text', async () => {
