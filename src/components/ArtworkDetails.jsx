@@ -1,16 +1,16 @@
 import { useParams, useLocation, Link } from 'react-router';
 import useArtworksQuery from '../hooks/useArtworksQuery';
 
-// import mirador here for accessible image viewer if it would be valuable?
-export default function ArtDetails() {
+// idea: import mirador here for accessible image viewer if it would be valuable?
+export default function ArtworkDetails() {
 	const params = useParams();
 	const location = useLocation();
-	const id = params.id;
-	const page = location.state.page;
-	// todo: use selector to only grab the one artwork
-	const { data, isFetching, isError, error } = useArtworksQuery(page);
+	const id = params?.id;
+	const page = location?.state?.page;
 
-	// todo: Compare isLoading and isPending to isFetching to determine the best one to use.
+	// todo: use selector to only grab one artwork
+	const { data, isFetching, isError, error } = useArtworksQuery(page);
+	
 	if (isFetching) {
 		return <p>Loading...</p>;
 	}
@@ -18,7 +18,7 @@ export default function ArtDetails() {
 	if (isError) {
 		return <p>Error! {error.message}</p>;
 	}
-
+	
 	if (data) {
 		const artworkDetails = data.artworksData[id];
 

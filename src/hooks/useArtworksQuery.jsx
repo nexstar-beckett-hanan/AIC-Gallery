@@ -1,14 +1,33 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import fetchArtworks from '../utils/fetchArtworks';
+import transformArtworkData from '../utils/transformArtworkData';
+import { ART_LIMIT_PER_PAGE, MAX_RESULTS } from '../constants/constants';
+const defaultSelector = (data) => {
+  const artworkDetailsById = {};
 
-const useArtworksQuery = (page) => {
+  data.data.forEach(
+    (artwork) =>
+      (artworkDetailsById[artwork.id] = transformArtworkData(artwork, data.config.iiif_url))
+  );
+
+  const maxPages = (Math.ceil(MAX_RESULTS / ART_LIMIT_PER_PAGE));
+  const totalPages = Math.min(data.pagination.total_pages, maxPages);
+
+  return {
+    data,
+    configUrl: data.config.iiif_url,
+    totalPages,
+    artworksData: artworkDetailsById,
+  };
+}
+
+const useArtworksQuery = (page, select = defaultSelector) => {
 	return useQuery({
 		queryKey: ['artworksData', page],
 		queryFn: fetchArtworks,
-		// placeholder data from previous fetch so the page isn't empty during loading (splitting this into a new file stopped this part from working, fix if there's time)
-		// also, it is clearer for the user that it shows "Loading", so not the worst UX for now
+		// todo: go deeper on this feature to make best use of it
 		placeholderData: keepPreviousData,
-		// todo: selectos to filter data
+    select,
 	});
 };
 

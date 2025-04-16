@@ -8,7 +8,7 @@ import { ART_LIMIT_PER_PAGE, SEARCH_TERM } from '../constants/constants';
 
 export default function Gallery({ newPage }) {
   const [page, setPage] = useState('1');
-  const [manualError, setManualError] = useState(null);
+  const [cachedTotalPages, setCachedTotalPages] = useState(null);
   
   useEffect(() => {
     if (newPage) {
@@ -24,36 +24,50 @@ export default function Gallery({ newPage }) {
 		({ configUrl, totalPages } = data);
 	}
 
+  useEffect(() => {
+    if (cachedTotalPages === null && totalPages) {
+      setCachedTotalPages(totalPages);
+    }
+  }, [totalPages, cachedTotalPages]);
+
 	// prefetch next page so it loads faster
 	const queryClient = useQueryClient();
 	useEffect(() => {
-    console.log(Number(page), totalPages)
-		if (Number(page) < totalPages) {
-			const nextPage = (Number(page) + 1).toString();
-			queryClient.prefetchQuery({
-				queryKey: ['artworksData', nextPage],
-				queryFn: fetchArtworks,
-			});
-		} else if (totalPages >= page) {
-      setManualError(`Page number too high. Try a lower page number than ${totalPages}`);
+    if (cachedTotalPages !== null) {
+      if (Number(page) < Number(cachedTotalPages)) {
+        const nextPage = (Number(page) + 1).toString();
+        queryClient.prefetchQuery({
+          queryKey: ['artworksData', nextPage],
+          queryFn: fetchArtworks,
+        });
+      } else if (Number(page) >= Number(cachedTotalPages)) {
+        // todo: may be able to get rid of this if it never triggers, just a backup for now
+        return <p>`Error! Page number too high. Try a lower page number than ${cachedTotalPages}`</p>;
+      }
     }
-	}, [page, totalPages, queryClient]);
+	}, [page, cachedTotalPages, queryClient]);
 
 	if (isFetching) {
 		return <p>Loading...</p>;
 	}
 
 	if (isError) {
+    if (Number(page) >= Number(cachedTotalPages)) {
+      error.message = (`Page number too high. Try a lower page number${cachedTotalPages ? 'than ${cachedTotalPages}' : ''}.`);
+    }
 		return <p>Error! {error.message}</p>;
 	}
 
-  if (manualError) {
-    return <h3>{manualError}</h3>;
-  }
+  // if (manualError) {
+  //   return <h3>{manualError}</h3>;
+  // }
 
 	return (
 		<main>
-			<p aria-current='page'><strong>Current page:</strong> {page}</p>
+      <aside>
+        <p><strong>Current Search Term:</strong> { SEARCH_TERM }</p>
+        <p aria-current='page'><strong>Current page:</strong> {page}</p>
+      </aside>
 			<Navigation
 				page={page}
 				isPlaceholderData={isPlaceholderData}
@@ -61,7 +75,7 @@ export default function Gallery({ newPage }) {
 				setPage={setPage}
         location={'Page Top'}
 			/>
-      <section className='gallery'>
+      <section aria-label='Art Gallery' className='gallery'>
         {/* <div role="status"
           aria-live="polite"
           aria-atomic="true">
