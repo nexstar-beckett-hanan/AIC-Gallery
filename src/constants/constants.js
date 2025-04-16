@@ -1,7 +1,7 @@
 // Art Institute of Chicago API Query params
 export const BASE_URL = 'https://api.artic.edu/api/v1/artworks/search';
-export const ART_LIMIT_PER_PAGE = 12;
-export const SEARCH_TERM = 'watercolor';
+export const ART_LIMIT_PER_PAGE = 6;
+export const SEARCH_TERM = 'cats';
 export const IS_PUBLIC_DOMAIN = '&query[term][is_public_domain]=true';
 // note: prev_url, next_url props are not available despite being listed as pagination props in API
 export const FIELDS = [
