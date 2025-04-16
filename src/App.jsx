@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Home from './components/Home';
 import ArtworkDetails from './components/ArtworkDetails';
-import './styles/App.css';
+import './styles/index.css';
 
 // Access new Tanstack Query client, and mark data as stale after 24 hrs
 const queryClient = new QueryClient({
@@ -38,10 +38,10 @@ function App() {
 						/>
 					</Routes>
 				</BrowserRouter>
-				<ReactQueryDevtools
+				{/* <ReactQueryDevtools
 					initialIsOpen={true}
 					buttonPosition={'top-right'}
-				/>
+				/> */}
 			</QueryClientProvider>
 		</ErrorBoundary>
 	);
