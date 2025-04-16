@@ -35,16 +35,14 @@ Tanstack/React Query, Vite, Vitest, React Testing Library, msw, and the Art Inst
 
 You can also run Vitest alongside dev mode if you like, if you open two terminal windows.
 
-# Notes
-
-## Things You Can Change
+# Other Things You Can Change
 
 1. Feel free to enable/disable `StrictMode` while running dev mode in App.jsx. I've commented it out in committed code just to speed things up and get rid of the annoying source map error warning in the console for anyone running for the first time.
 2. To see more info about what Tanstack/React Query is doing behind the scenes, uncomment the `<ReactQueryDevTools>` component in App.jsx. It will open automatically in dev mode.
 3. To update sampleData.json, uncomment the ReactQueryDevTools in App.jsx, copy the data from the dev tool UI by clicking a request and then using the copy icon next to the Data object, and paste it into the json file. Then remove the json object wrapper before saving - this makes referencing data properties simpler in testing.
 4. To choose a different search term or number of artworks to show per page, edit them in the constants.js file.
 
-## Cool features
+# Cool features
 
 - Changing number of artworks or the current search term in constants.js will not only update the Gallery display, it will also update the navigation buttons and Current Search Term in the Gallery.
 - If you use Firefox, try switching to light mode in the devtools to see the light mode version of the app!
