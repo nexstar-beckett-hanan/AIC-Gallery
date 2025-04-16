@@ -30,5 +30,5 @@ describe('mock API data', () => {
 		expect(transformedSample).toHaveProperty('imgSrc');
 	});
 
-	// todo: check types here as well, or consider converting project to TypeScript
+	// Todo: Check types here as well, or consider converting project to TypeScript in general.
 });

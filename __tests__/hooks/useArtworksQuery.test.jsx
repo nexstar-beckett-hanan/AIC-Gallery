@@ -6,7 +6,7 @@ import useArtworksQuery from '../../src/hooks/useArtworksQuery';
 import { createWrapper } from '../testUtils';
 import { mockServer } from '../../vitest-setup';
 
-// using 2 to match mock data
+// Using 2 to match mock data.
 const page = 2;
 
 describe('useArtworksQuery hook', () => {

@@ -1,9 +1,10 @@
-// Art Institute of Chicago API Query params
+// Art Institute of Chicago API Query params.
 export const BASE_URL = 'https://api.artic.edu/api/v1/artworks/search';
 export const ART_LIMIT_PER_PAGE = 6;
 export const SEARCH_TERM = 'cats';
 export const IS_PUBLIC_DOMAIN = '&query[term][is_public_domain]=true';
-// note: prev_url, next_url props are not available despite being listed as pagination props in API
+
+// Note: prev_url, next_url props are not available despite being listed as pagination props in API.
 export const FIELDS = [
 	'id',
 	'title',
@@ -19,7 +20,8 @@ export const FIELDS = [
 ];
 export const FIELDSSTRING = `fields=${FIELDS}`;
 
-// default request image size from hotlinked artwork images
+// Default request image size from hotlinked artwork images.
 export const IMAGE_SIZE = '200';
-// Max artworks available as defined by API is 10000, but seems like it may have been adjusted to 1000 as any higher gives an error
+
+// Max artworks available as defined by API is 10000, but seems like it may have been adjusted to 1000 as any higher gives an error.
 export const MAX_RESULTS = 1000;

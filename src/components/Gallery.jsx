@@ -30,7 +30,7 @@ export default function Gallery({ newPage }) {
     }
   }, [totalPages, cachedTotalPages]);
 
-	// prefetch next page so it loads faster
+	// Prefetch next page so it loads faster.
 	const queryClient = useQueryClient();
 	useEffect(() => {
     if (cachedTotalPages !== null) {
@@ -41,7 +41,7 @@ export default function Gallery({ newPage }) {
           queryFn: fetchArtworks,
         });
       } else if (Number(page) >= Number(cachedTotalPages)) {
-        // todo: may be able to get rid of this if it never triggers, just a backup for now
+        // Todo: May be able to get rid of this if it never triggers, just a backup for now.
         return <p>`Error! Page number too high. Try a lower page number than ${cachedTotalPages}`</p>;
       }
     }
@@ -57,10 +57,6 @@ export default function Gallery({ newPage }) {
     }
 		return <p>Error! {error.message}</p>;
 	}
-
-  // if (manualError) {
-  //   return <h3>{manualError}</h3>;
-  // }
 
 	return (
 		<main>

@@ -6,7 +6,7 @@ import Home from './components/Home';
 import ArtworkDetails from './components/ArtworkDetails';
 import './styles/index.css';
 
-// Access new Tanstack Query client, and mark data as stale after 24 hrs
+// Access new Tanstack Query client, and mark data as stale after 24 hrs.
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
