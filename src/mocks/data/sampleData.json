@@ -1,0 +1,144 @@
+{
+		"preference": null,
+		"pagination": {
+			"total": 236,
+			"limit": 6,
+			"offset": 6,
+			"total_pages": 40,
+			"current_page": 2
+		},
+		"data": [
+			{
+				"_score": 198.17854,
+				"id": 81537,
+				"title": "Bordighera",
+				"thumbnail": {
+					"lqip": "data:image/gif;base64,R0lGODlhBgAFAPQAADc5KUNGLkJCMUZFMUFEN01TPFlXPmVlPWVsO1haRlteRl1cR1ZaT0hPUE5XWlVYVmRkQmVmQmNnSWluSlteYV1lZVlneWBmZ2dwbnd8YGVqeXeEe2t1gX2PhAAAAAAAACH5BAAAAAAALAAAAAAGAAUAAAUY4FUpRtJxVvMwW4ZRmlNMErQEAhIdA0CEADs=",
+					"width": 6018,
+					"height": 4842,
+					"alt_text": "Bright landscape painting featuring spindly trees with lush leaves surrounded by light-green foliage, a small town visible between the trees at center, and a calm blue sea in the background."
+				},
+				"date_display": "1884",
+				"artist_display": "Claude Monet (French, 1840–1926)",
+				"place_of_origin": "France",
+				"medium_display": "Oil on canvas",
+				"artist_title": "Claude Monet",
+				"style_titles": ["Impressionism", "nineteenth century", "19th century"],
+				"theme_titles": [],
+				"image_id": "4d1b3ad0-14db-0d21-ad9f-17abb8bdfbb5",
+				"updated_at": "2025-04-13T23:24:08-05:00"
+			},
+			{
+				"_score": 194.34233,
+				"id": 14624,
+				"title": "Stacks of Wheat (End of Day, Autumn)",
+				"thumbnail": {
+					"lqip": "data:image/gif;base64,R0lGODlhCAAFAPUAAGlaXX5dVmNgX2xjWXlhVnFjX3ljW2BbZWhjY3xmYHtnZ3ZsaX1ya31wbH1ycn11dH93dX52d393eYBiX4NoZ4NqaIV1cId4d6CQeaWVfIuHiY2GjZGLh5SPh56Xh6edg6SskKuwnbKtpraxprO2pLa0p7W3prWxqAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAIAAUAAAYlQNFpVDKRQqCNhtPxYDKfA0CAKBAMAwXFcqlMAgkGJCJ5OBqLIAA7",
+					"width": 6840,
+					"height": 4455,
+					"alt_text": "Painting mostly in soft yellow, green, purple, blue, and pink of two wheatstacks, the right nearer than the left, in a country landscape at sunset."
+				},
+				"date_display": "1890–91",
+				"artist_display": "Claude Monet (French, 1840–1926)",
+				"place_of_origin": "France",
+				"medium_display": "Oil on canvas",
+				"artist_title": "Claude Monet",
+				"style_titles": ["Impressionism", "nineteenth century", "19th century"],
+				"theme_titles": [],
+				"image_id": "4c364c64-2108-4e19-5fc5-1ab26ba924a7",
+				"updated_at": "2025-04-13T23:25:43-05:00"
+			},
+			{
+				"_score": 190.67775,
+				"id": 16564,
+				"title": "Branch of the Seine near Giverny (Mist)",
+				"thumbnail": {
+					"lqip": "data:image/gif;base64,R0lGODlhBQAFAPQAAG5xiHJ2iXJ2jXl6k4CCmYWImZCSqpSWr5ubr46OsZuds5qata6nrqamt6ymsaimt6emubausbOstbuzuLiyvKutxK+wxbGww6+00AAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAFAAUAAAUVICAUERMQiPQMB2ZVyXJRkKE0kxMCADs=",
+					"width": 5253,
+					"height": 5097,
+					"alt_text": "Painting of softly rendered shapes in pale blue, green, and white. A textured green mass at left resembles foliage. Blue and white cloud-like forms fill the rest of the frame."
+				},
+				"date_display": "1897",
+				"artist_display": "Claude Monet (French, 1840–1926)",
+				"place_of_origin": "France",
+				"medium_display": "Oil on canvas",
+				"artist_title": "Claude Monet",
+				"style_titles": ["Impressionism", "nineteenth century", "19th century"],
+				"theme_titles": [],
+				"image_id": "838d8c33-a3b4-68ea-587b-87ceec2011af",
+				"updated_at": "2025-04-13T23:24:11-05:00"
+			},
+			{
+				"_score": 190.00255,
+				"id": 81539,
+				"title": "On the Bank of the Seine, Bennecourt",
+				"thumbnail": {
+					"lqip": "data:image/gif;base64,R0lGODlhBgAFAPQAADo8JzM3LDw+KTo/NkVPL0FGNEpHMkBHPUNKPlFLM0pLQlFOQVBaR1NjX2dkUHdxW2Nua2xyY3FwYXJwZ3B5cIR8XYJ/apCJa4GDcYmJc42Kc4yJe2N2inaPsAAAAAAAACH5BAAAAAAALAAAAAAGAAUAAAUYIFAcCNcJwaBIWWI4T3Ut06ZZGBFRTAOFADs=",
+					"width": 6116,
+					"height": 4943,
+					"alt_text": "Painting of woman in a striped dress seated on the bank of a river, beneath a full, leafy tree, a boat at the shore and a village visible across the river."
+				},
+				"date_display": "1868",
+				"artist_display": "Claude Monet (French, 1840–1926)",
+				"place_of_origin": "France",
+				"medium_display": "Oil on canvas",
+				"artist_title": "Claude Monet",
+				"style_titles": ["Impressionism", "nineteenth century", "19th century"],
+				"theme_titles": [],
+				"image_id": "66f95ea3-a11a-1cf4-6599-d0a49bb25744",
+				"updated_at": "2025-04-13T23:24:08-05:00"
+			},
+			{
+				"_score": 189.49582,
+				"id": 16549,
+				"title": "Apples and Grapes",
+				"thumbnail": {
+					"lqip": "data:image/gif;base64,R0lGODlhBgAFAPQAAExLSlBKRFVOT1pXU2RiW2pmWWtoWGxmaWNpbG9qbXt0ZHNvc3d1cnhycXtycnl4foZ8bnqAfomDd4uHeouAfoKCh4eIh4iJhYyNh4uNi5KSiIuLk5WVl5ucpQAAAAAAACH5BAAAAAAALAAAAAAGAAUAAAUYIOUcwgAwChEYSDRBhWQ9W8ddWJMsVaaFADs=",
+					"width": 6133,
+					"height": 4902,
+					"alt_text": "Apples and grapes rest in a shallow wicker basket on a table covered with a light-colored cloth. Additional fruit is scattered on the table."
+				},
+				"date_display": "1880",
+				"artist_display": "Claude Monet (French, 1840–1926)",
+				"place_of_origin": "France",
+				"medium_display": "Oil on canvas",
+				"artist_title": "Claude Monet",
+				"style_titles": ["Impressionism", "nineteenth century", "19th century"],
+				"theme_titles": [],
+				"image_id": "c12058f4-188f-c6ed-f0fe-52b32acfb296",
+				"updated_at": "2025-04-13T23:24:11-05:00"
+			},
+			{
+				"_score": 188.57457,
+				"id": 16554,
+				"title": "The Artist's House at Argenteuil",
+				"thumbnail": {
+					"lqip": "data:image/gif;base64,R0lGODlhBgAFAPQAAE9QPlRWP1xlRF5gVl1iWmVsTmZiV2VmVGVsVGlvX25wVm5zXHl+XGdsZ21ubW9xanFyZXJ1anx7fYJ/fYuGc4mJe3eEgn6KjYqEgoKUq46dq4OZsoqhv5uqtwAAAAAAACH5BAAAAAAALAAAAAAGAAUAAAUYYKZxm8JYydUtkBAAVWQUyPE0AzVhkkOEADs=",
+					"width": 5928,
+					"height": 4842,
+					"alt_text": "Among potted flowers and lush foliage, a tiny child in a white dress plays with a hoop. A woman peers at the child from an ivy-covered building at right."
+				},
+				"date_display": "1873",
+				"artist_display": "Claude Monet (French, 1840–1926)",
+				"place_of_origin": "France",
+				"medium_display": "Oil on canvas",
+				"artist_title": "Claude Monet",
+				"style_titles": ["Impressionism", "nineteenth century", "19th century"],
+				"theme_titles": [],
+				"image_id": "7d533ed4-ff54-fa2c-64f4-2b16bfbb5880",
+				"updated_at": "2025-04-13T23:24:11-05:00"
+			}
+		],
+		"info": {
+			"license_text": "The `description` field in this response is licensed under a Creative Commons Attribution 4.0 Generic License (CC-By) and the Terms and Conditions of artic.edu. All other data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
+			"license_links": [
+				"https://creativecommons.org/publicdomain/zero/1.0/",
+				"https://www.artic.edu/terms"
+			],
+			"version": "1.13"
+		},
+		"config": {
+			"iiif_url": "https://www.artic.edu/iiif/2",
+			"website_url": "http://www.artic.edu"
+		}
+}
