@@ -43,7 +43,7 @@ export default function ArtworkDetails() {
 				className='art-details'
 			>
 				<section className='column left-column'>
-					<Link to={{ pathname: `/` }}>
+					<Link to={{ pathname: `/${page}` }}>
 						<button>
 							<b>{'Back'}</b>
 						</button>
