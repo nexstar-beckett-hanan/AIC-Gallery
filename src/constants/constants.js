@@ -4,7 +4,19 @@ export const ART_LIMIT_PER_PAGE = 12;
 export const SEARCH_TERM = 'watercolor';
 export const IS_PUBLIC_DOMAIN = '&query[term][is_public_domain]=true';
 // note: prev_url, next_url props are not available despite being listed as pagination props in API
-export const FIELDS = ['id','title','artist_title','thumbnail','place_of_origin','updated_at','style_titles','theme_titles','date_display','medium_display','image_id'];
+export const FIELDS = [
+	'id',
+	'title',
+	'artist_title',
+	'thumbnail',
+	'place_of_origin',
+	'updated_at',
+	'style_titles',
+	'theme_titles',
+	'date_display',
+	'medium_display',
+	'image_id',
+];
 export const FIELDSSTRING = `fields=${FIELDS}`;
 
 // default request image size from hotlinked artwork images

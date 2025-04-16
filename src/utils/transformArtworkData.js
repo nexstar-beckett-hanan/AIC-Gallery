@@ -1,9 +1,9 @@
-import { IMAGE_SIZE } from "../constants/constants";
+import { IMAGE_SIZE } from '../constants/constants';
 
 // turns API fields into data shape desired for display
 const transformArtworkData = (artwork, configUrl) => {
 	const imgSrc = `${configUrl}/${artwork.image_id}/full/${IMAGE_SIZE},/0/default.jpg`;
-  const convertedDate = new Date(Date.parse(artwork.updated_at)).toDateString();
+	const convertedDate = new Date(Date.parse(artwork.updated_at)).toDateString();
 	const artWithImage = {
 		id: artwork.id,
 		title: artwork.title,
