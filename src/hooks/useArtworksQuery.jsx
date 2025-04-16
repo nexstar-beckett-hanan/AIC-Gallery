@@ -25,7 +25,7 @@ const useArtworksQuery = (page, select = defaultSelector) => {
 	return useQuery({
 		queryKey: ['artworksData', page],
 		queryFn: fetchArtworks,
-		// todo: go deeper on this feature to make best use of it
+		// Todo: Go deeper on this feature to make best use of it.
 		placeholderData: keepPreviousData,
     select,
 	});

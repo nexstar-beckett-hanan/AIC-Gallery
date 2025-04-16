@@ -16,7 +16,7 @@ vi.mock('react-router-dom', () => ({
 describe('Navigation', () => {
 	let page = 1;
 	const totalPages = 40;
-	// todo: mock this better later if needed
+	// Todo: Mock this better later if needed.
 	const setPage = (newPage) => (page = newPage);
 	const result = renderWithClient(
 		<BrowserRouter>

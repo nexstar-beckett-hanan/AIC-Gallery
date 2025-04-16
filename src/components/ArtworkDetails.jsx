@@ -1,14 +1,16 @@
 import { useParams, useLocation, Link } from 'react-router';
 import useArtworksQuery from '../hooks/useArtworksQuery';
 
-// idea: import mirador here for accessible image viewer if it would be valuable?
+// Idea: Import mirador here for accessible image viewer if it would be valuable?
 export default function ArtworkDetails() {
 	const params = useParams();
 	const location = useLocation();
 	const id = params?.id;
 	const page = location?.state?.page;
 
-	// todo: use selector to only grab one artwork
+	// Idea: Use selector to only grab one artwork's data.
+	// Tradeoff is that it would require converting all data ahead of time, instead into an object sorted by id,
+	// or using array.find constantly.
 	const { data, isFetching, isError, error } = useArtworksQuery(page);
 
 	if (isFetching) {
@@ -100,6 +102,6 @@ export default function ArtworkDetails() {
 		);
 	}
 
-	// fallback
+	// Basic fallback.
 	<p>Missing art data.</p>;
 }

@@ -25,7 +25,7 @@ vi.mock('react-router', async () => {
 });
 
 describe('Artwork Details Component', () => {
-	// todo: either adjust how page and artwork id are passed, or focus on route testing first to get data to load
+	// Todo: Either adjust how page and artwork id are passed, or focus on route testing first to get data to load.
 	// Currently, this test is just stuck on "Loading..."" forever
 	// describe('on success', () => {
 	//   it('shows a success message', async () => {
@@ -47,7 +47,7 @@ describe('Artwork Details Component', () => {
 
 	describe('on loading', () => {
 		it('shows a loading message', async () => {
-			// note: this may be ideal to use later, but at the moment it seems to cause an issue with the interceptor when mockServer is used more than once.
+			// Note: This may be ideal to use later, but at the moment it seems to cause an issue with the interceptor when mockServer is used more than once.
 			// mockServer.use(
 			//   http.get('*', () => data)
 			// );
