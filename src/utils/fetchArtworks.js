@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { BASE_URL, ART_LIMIT_PER_PAGE, SEARCH_TERM, IS_PUBLIC_DOMAIN, FIELDSSTRING } from '../constants/constants';
+import {
+	BASE_URL,
+	ART_LIMIT_PER_PAGE,
+	SEARCH_TERM,
+	IS_PUBLIC_DOMAIN,
+	FIELDSSTRING,
+} from '../constants/constants';
 
 const fetchArtworks = async ({ queryKey }) => {
 	// page is passed automatically by Tanstack Query via queryKey

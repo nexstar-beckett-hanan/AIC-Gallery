@@ -16,8 +16,8 @@ describe('useArtworksQuery hook', () => {
 		});
 
 		await waitFor(() => {
-      expect(result.current.isSuccess).toBe(true)
-    });
+			expect(result.current.isSuccess).toBe(true);
+		});
 		expect(result.current.data).toBeDefined();
 	});
 

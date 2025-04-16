@@ -17,16 +17,16 @@ vi.mock('react-router-dom', () => ({
 
 const newPage = 1;
 describe('Gallery Component', () => {
-  describe('on success', () => {
-    it('should show a "main" section', async () => {
-      const result = renderWithClient(
-        <BrowserRouter>
-          <Gallery newPage={newPage} />
-        </BrowserRouter>
-      );
-  
-      expect(await result.findByRole('main')).toBeInTheDocument();
-    });
+	describe('on success', () => {
+		it('should show a "main" section', async () => {
+			const result = renderWithClient(
+				<BrowserRouter>
+					<Gallery newPage={newPage} />
+				</BrowserRouter>
+			);
+
+			expect(await result.findByRole('main')).toBeInTheDocument();
+		});
 
 		it('should show the "current page" text', async () => {
 			const result = renderWithClient(
@@ -38,17 +38,14 @@ describe('Gallery Component', () => {
 			expect(await result.findByText(/Current Page:/i)).toBeInTheDocument();
 		});
 
-
 		it('should show the page number', async () => {
 			const result = renderWithClient(
 				<BrowserRouter>
-					<Gallery newPage={ newPage } />
+					<Gallery newPage={newPage} />
 				</BrowserRouter>
 			);
 
-			expect(
-				await result.findByRole('paragraph', /1/i)
-			).toBeInTheDocument();
+			expect(await result.findByRole('paragraph', /1/i)).toBeInTheDocument();
 		});
 	});
 

@@ -12,5 +12,5 @@ afterEach(() => mockServer.resetHandlers());
 afterAll(() => mockServer.close());
 
 afterEach(() => {
-  cleanup();
+	cleanup();
 });

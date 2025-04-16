@@ -28,7 +28,7 @@
 //   })
 
 //   describe('when data retrieved successfully', () => {
-    
+
 //     describe('on page change', () => {
 
 //     })
