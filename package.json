@@ -1,5 +1,6 @@
 {
 	"name": "aic-gallery",
+	"homepage": "https://nexstar-beckett-hanan.github.io/AIC-Gallery",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -9,10 +10,13 @@
 		"lint": "eslint .",
 		"preview": "vite preview",
 		"test": "vitest",
-		"test-ui": "vitest --ui"
+		"test-ui": "vitest --ui",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d dist"
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^5.72.2",
+		"gh-pages": "^6.3.0",
 		"react": "^19.0.0",
 		"react-dom": "^19.1.0",
 		"react-error-boundary": "^5.0.0",
