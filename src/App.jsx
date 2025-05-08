@@ -5,6 +5,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import Home from './components/Home';
 import ArtworkDetails from './components/ArtworkDetails';
 import './styles/index.css';
+import { BASEPATH } from './constants/constants';
+
+const isProd = import.meta.env.PROD;
+const rootPath = isProd ? BASEPATH : '/';
 
 // Access new Tanstack Query client, and mark data as stale after 24 hrs.
 const queryClient = new QueryClient({
@@ -24,7 +28,7 @@ function App() {
 				<BrowserRouter>
 					<Routes>
             {/* todo: see if it's possible to set up access to details pages with going to them via Gallery the first time to hydrate data, seems like HashBrowser instead of BrowserRouter might be the right way, and/or configuring a basename for vite and using it during the build command */}
-						<Route path='/'>
+						<Route path={rootPath} >
               <Route index element={<Home />} />
               <Route path=':page' element={<Home />} />
             </Route>
